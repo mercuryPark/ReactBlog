@@ -1,5 +1,17 @@
 .App {
   text-align: center;
+ 
+}
+body{
+  background-color: #000;
+}
+h2{
+  color: #fff;
+}
+h1{
+  margin-top: 900px;
+  color: white;
+  opacity: 0;
 }
 
 .App-logo {
