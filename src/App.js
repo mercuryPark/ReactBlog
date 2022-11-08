@@ -1,36 +1,48 @@
 
 import './App.css';
 import {Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
+import MainPage from './routes/MainPage'
 import axios from 'axios'
+import {css} from '@emotion/react'
+import Nav from './nav'
 import { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import About from './routes/About';
+import {Data, LinkData} from './contents/Data'
+import FirstFrontChapter  from './posts/FirstFrontChapter'
 
 function App() {
   let [test, setTest] = useState('하이용')
+  let [content, setContent] = useState(Data)
+  let [link, setLink] = useState(LinkData)
 
   return (
     <div className="App">
+      
+      {/* main nav */}
+    <Nav></Nav>
+
       <Routes>
       <Route path="/" element={
-        <>
-
- <h1>블로그 입니다. {test}</h1>
- <h1>블로그 입니다. 2</h1>
- <h1>블로그 입니다 3</h1>
- <h1>블로그 입니다 4</h1>
- <button onClick={()=>{
-  let copy = test;
-  copy = copy + '채린앙'
-  setTest(copy)
-  
- }}
- >변경스테이트 써보자잉</button>
-</>
+        <div style={{display:'flex', flexWrap:'wrap', width:'880px', justifyContent:'center', gap:'30px', marginTop:'100px'}}>
+        { 
+        content.map((a,i)=>{
+          return <MainPage link={link} content={content} i={i} key={i}/>
+      })
+      }
+        </div>
       }></Route>
-      <Route path="/light" element={<div>이게 라우튼데요?</div>}></Route>
+      <Route path="/about" element={
+         <About />
+      }></Route> 
+
+
+      <Route path='/posts'>
+      <Route path={link[0]} element={<FirstFrontChapter />}/>
+      </Route>
+
+
      </Routes>
-    
-   
 
     </div>
   );
